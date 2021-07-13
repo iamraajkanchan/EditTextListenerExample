@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import androidx.core.widget.addTextChangedListener
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity() {
@@ -16,7 +17,8 @@ class MainActivity : AppCompatActivity() {
 
     private fun initEditText() {
         var randomTextCounter = 0
-        ed_randomText.addTextChangedListener(object : TextWatcher {
+
+        val textWatcher = object : TextWatcher {
             override fun beforeTextChanged(char: CharSequence?, p1: Int, p2: Int, p3: Int) {
 
             }
@@ -37,6 +39,10 @@ class MainActivity : AppCompatActivity() {
                     ed_randomText.setSelection(userInput.toString().length)
                 }
             }
-        })
+        }
+
+        ed_randomText.addTextChangedListener {
+            textWatcher.afterTextChanged(it)
+        }
     }
 }
